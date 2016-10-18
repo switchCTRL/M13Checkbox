@@ -230,6 +230,8 @@ public class M13Checkbox: UIControl {
     /// The default animation is a stroke.
     fileprivate var controller: M13CheckboxController = M13CheckboxStrokeController()
     
+    public var onSelectedClosure: ((_ checked: Bool) -> Void)?
+    
     //----------------------------
     // MARK: - Initalization
     //----------------------------
@@ -306,6 +308,8 @@ public class M13Checkbox: UIControl {
      - parameter animated: Whether or not to animate the change.
      */
     public func setCheckState(_ newState: CheckState, animated: Bool) {
+        onSelectedClosure?(newState != .unchecked)
+        
         if checkState == newState {
             return
         }
